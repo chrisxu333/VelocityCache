@@ -12,7 +12,7 @@ std::string gen_random(const int len) {
     for (int i = 0; i < len; ++i) {
         tmp_s += alphanum[rand() % (sizeof(alphanum) - 1)];
     }
-    
+
     return tmp_s;
 }
 
@@ -24,7 +24,7 @@ TEST(Test_Insertion, Modification) {
     std::string value = gen_random(rand() % 10 + 1);
     cache.insert(key, value);
     cache.release(key);
-    // cache.show();
+    cache.show();
   }
 }
 
@@ -32,8 +32,8 @@ TEST(Test_Lookup, Modification) {
   for(size_t i = 95; i < 100; ++i) {
     std::string key = std::to_string(i);
     std::string value;
-    int found = cache.lookup(key, value);
-    if(found) cache.release(key);
+    Status status = cache.lookup(key, value);
+    if(status == Status::Ok) cache.release(key);
     cache.show();
   }
 }
